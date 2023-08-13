@@ -18,7 +18,7 @@ bot.command("get", async (ctx) => {
   const user = await ctx.getAuthor();
   if (
     !Deno.env.get("USERS")!.split(",").includes(
-      user.user.username!.toLowerCase(),
+      user.user.username!,
     )
   ) {
     console.log("*******", user.user.username, "*****", Deno.env.get("USERS"));
