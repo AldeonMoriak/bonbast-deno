@@ -21,6 +21,7 @@ bot.command("get", async (ctx) => {
       user.user.username!.toLowerCase(),
     )
   ) {
+    console.log("*******", user.user.username, "*****", Deno.env.get("USERS"));
     return ctx.reply("Scram! You're not allowed to use this bot.");
   }
   try {
