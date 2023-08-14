@@ -73,7 +73,6 @@ async function getToken(): Promise<string | undefined> {
 export async function getCurrencies(): Promise<string[][] | undefined> {
   try {
     const token = await getToken();
-    console.log(token);
     if (token) {
       const body = `param=${token}`;
       const request = new Request(BASE_URL + "/json", {
@@ -85,7 +84,6 @@ export async function getCurrencies(): Promise<string[][] | undefined> {
         return response.json();
       }).then((data) => {
         const currencyList = [];
-        console.log(data);
 
         for (const currency of Object.keys(CURRENCIES)) {
           const currentCurrency = [];
@@ -101,6 +99,7 @@ export async function getCurrencies(): Promise<string[][] | undefined> {
           );
           currencyList.push(currentCurrency);
         }
+        console.log(currencyList);
         return currencyList;
       });
     }
