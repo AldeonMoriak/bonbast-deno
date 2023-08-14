@@ -64,5 +64,5 @@ function makeTable(
   return (`| Currency | Buy | Sell |\n| ---- | ---- | ---- |\n${data}`).replace(
     /\|/g,
     "\\|",
-  );
+  ).replace(/\-/g, "\\-");
 }
