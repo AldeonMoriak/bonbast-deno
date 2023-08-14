@@ -27,7 +27,7 @@ bot.command("get", async (ctx) => {
   try {
     const currencies = await getCurrencies();
     if (currencies) {
-      return ctx.reply(makeTable(currencies), { parse_mode: "HTML" });
+      return ctx.reply(makeTable(currencies), { parse_mode: "MarkdownV2" });
     }
     return ctx.reply("Something went wrong!");
   } catch (error) {
@@ -59,12 +59,9 @@ function makeTable(
   const data = currencies.map(
     (
       item,
-    ) => (`<tr style="border: 1px solid black"><td style="border: 1px solid black">${item.currency}</td><td style="border: 1px solid black">${item.buy}</td><td style="border: 1px solid black">${item.sell}</td></tr>`),
+    ) => (`|${item.currency} | ${item.buy} | ${item.sell} | \n`),
   ).join("");
-  return (`<table style="border: 1px solid black">
-  <tr style="border: 1px solid black">
-    <th style="border: 1px solid black">Currency</th>
-    <th style="border: 1px solid black">Buy</th>
-    <th style="border: 1px solid black">Sell</th>
-  </tr>${data}</table>`);
+  return (`| Currency| Buy | Sell |
+          | ---- | ---- | ---- | 
+          ${data}`);
 }
