@@ -53,13 +53,21 @@ Deno.serve(async (req) => {
   return new Response();
 });
 
+function rightpad(text: string, length: number): string {
+  return text.concat(
+    Array.from({ length: length - text.length }).join(" "),
+  );
+}
+
 function makeTable(
   currencies: { currency: string; buy: string; sell: string }[],
 ): string {
   const data = currencies.map(
     (
       item,
-    ) => (`| ${item.currency} | ${item.buy} | ${item.sell} | \n`),
+    ) => (`| ${rightpad(item.currency, 20)} | ${rightpad(item.buy, 10)} | ${
+      rightpad(item.sell, 10)
+    } | \n`),
   ).join("");
   return "```\n" +
     (`| Currency | Buy | Sell |\n| :---- | ----: | ----: |\n${data}\n`)
