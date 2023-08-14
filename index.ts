@@ -27,9 +27,8 @@ bot.command("get", async (ctx) => {
   try {
     const currencies = await getCurrencies();
     if (currencies) {
-      console.log(currencies);
       let text = "";
-      for (const currency in currencies) {
+      for (const currency of currencies) {
         text += currency[0] + currency[1] + "\n";
       }
       return ctx.reply(text);
