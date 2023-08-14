@@ -61,13 +61,11 @@ function makeTable(
       item,
     ) => (`| ${item.currency} | ${item.buy} | ${item.sell} | \n`),
   ).join("");
-  return (`\`\`\` | Currency | Buy | Sell |\n| :---- | ----: | ----: |\n${data}\`\`\``)
-    .replace(
-      /\`/g,
-      "\`",
-    )
-    .replace(
-      /\|/g,
-      "\\|",
-    ).replace(/\-/g, "\\-");
+  return "```\n" +
+    (`| Currency | Buy | Sell |\n| :---- | ----: | ----: |\n${data}\n`)
+      .replace(
+        /\|/g,
+        "\\|",
+      ).replace(/\-/g, "\\-") +
+    "```";
 }
