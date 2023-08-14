@@ -80,7 +80,7 @@ export async function getCurrencies(): Promise<string[][] | undefined> {
         method: "post",
         body,
       });
-      await fetch(request).then((response) => {
+      return fetch(request).then((response) => {
         return response.json();
       }).then((data) => {
         const currencyList = [];
@@ -89,17 +89,16 @@ export async function getCurrencies(): Promise<string[][] | undefined> {
           const currentCurrency = [];
           currentCurrency.push(
             `buy ${CURRENCIES[currency as CurrencyType]} ${
-              data[currency + BUY as CurrencyType]
+              data[`${currency}${BUY}` as CurrencyType]
             }`,
           );
           currentCurrency.push(
             `sell ${CURRENCIES[currency as CurrencyType]} ${
-              data[currency + SELL as CurrencyType]
+              data[`${currency}${SELL}` as CurrencyType]
             }`,
           );
           currencyList.push(currentCurrency);
         }
-        console.log(currencyList);
         return currencyList;
       });
     }
