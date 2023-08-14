@@ -70,7 +70,9 @@ async function getToken(): Promise<string | undefined> {
   }
 }
 
-export async function getCurrencies(): Promise<string[][] | undefined> {
+export async function getCurrencies(): Promise<
+  { currency: string; sell: string; buy: string }[] | undefined
+> {
   try {
     const token = await getToken();
     if (token) {
@@ -86,17 +88,15 @@ export async function getCurrencies(): Promise<string[][] | undefined> {
         const currencyList = [];
 
         for (const currency of Object.keys(CURRENCIES)) {
-          const currentCurrency = [];
-          currentCurrency.push(
-            `buy ${CURRENCIES[currency as CurrencyType]} ${
-              data[`${currency}${BUY}` as CurrencyType]
-            }`,
-          );
-          currentCurrency.push(
-            `sell ${CURRENCIES[currency as CurrencyType]} ${
-              data[`${currency}${SELL}` as CurrencyType]
-            }`,
-          );
+          const sellValue = data[`${currency}${SELL}` as CurrencyType]
+            .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          const buyValue = data[`${currency}${BUY}` as CurrencyType].toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          const currentCurrency = {
+            "currency": CURRENCIES[currency as CurrencyType],
+            buy: buyValue,
+            sell: sellValue,
+          };
           currencyList.push(currentCurrency);
         }
         return currencyList;

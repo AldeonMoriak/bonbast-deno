@@ -27,11 +27,7 @@ bot.command("get", async (ctx) => {
   try {
     const currencies = await getCurrencies();
     if (currencies) {
-      let text = "";
-      for (const currency of currencies) {
-        text += currency[0] + currency[1] + "\n";
-      }
-      return ctx.reply(text);
+      return ctx.reply(makeTable(currencies), { parse_mode: "HTML" });
     }
     return ctx.reply("Something went wrong!");
   } catch (error) {
@@ -56,3 +52,19 @@ Deno.serve(async (req) => {
   }
   return new Response();
 });
+
+function makeTable(
+  currencies: { currency: string; buy: string; sell: string }[],
+): string {
+  const data = currencies.map(
+    (
+      item,
+    ) => (`<tr style="border: 1px solid black"><td style="border: 1px solid black">${item.currency}</td><td style="border: 1px solid black">${item.buy}</td><td style="border: 1px solid black">${item.sell}</td></tr>`),
+  ).join("");
+  return (`<table style="border: 1px solid black">
+  <tr style="border: 1px solid black">
+    <th style="border: 1px solid black">Currency</th>
+    <th style="border: 1px solid black">Buy</th>
+    <th style="border: 1px solid black">Sell</th>
+  </tr>${data}</table>`);
+}
