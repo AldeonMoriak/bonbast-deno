@@ -61,7 +61,7 @@ function makeTable(
       item,
     ) => (`\| ${item.currency} \| ${item.buy} \| ${item.sell} \| \n`),
   ).join("");
-  return (`\| Currency \| Buy \| Sell \|
-          \| ---- \| ---- \| ---- \| 
+  return (`\\| Currency \\| Buy \\| Sell \|
+          \| ---- \| ---- \| ---- \\| 
           ${data}`);
 }
