@@ -59,9 +59,26 @@ function makeTable(
   const data = currencies.map(
     (
       item,
-    ) => (`\| ${item.currency} \| ${item.buy} \| ${item.sell} \| \n`),
+    ) => (`| ${item.currency} | ${item.buy} | ${item.sell} | \n`),
   ).join("");
-  return (`\\| Currency \\| Buy \\| Sell \|
-          \| ---- \| ---- \| ---- \\| 
-          ${data}`);
+  return (`| Currency | Buy | Sell |
+          | ---- | ---- | ---- | 
+          ${data}`).replace(/\_/g, "\\_")
+    .replace(/\*/g, "\\*")
+    .replace(/\[/g, "\\[")
+    .replace(/\]/g, "\\]")
+    .replace(/\(/g, "\\(")
+    .replace(/\)/g, "\\)")
+    .replace(/\~/g, "\\~")
+    .replace(/\`/g, "\\`")
+    .replace(/\>/g, "\\>")
+    .replace(/\#/g, "\\#")
+    .replace(/\+/g, "\\+")
+    .replace(/\-/g, "\\-")
+    .replace(/\=/g, "\\=")
+    .replace(/\|/g, "\\|")
+    .replace(/\{/g, "\\{")
+    .replace(/\}/g, "\\}")
+    .replace(/\./g, "\\.")
+    .replace(/\!/g, "\\!");
 }
