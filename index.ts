@@ -72,7 +72,7 @@ function makeTable(
   return "```\n" +
     (`| ${rightpad("Currency", 20)} | ${rightpad("Buy", 10)} | ${
       rightpad("Sell", 10)
-    } |\n| :---- | ----: | ----: |\n${data}\n`)
+    } |\n| :----              |    ----: |    ----: |\n${data}\n`)
       .replace(
         /\|/g,
         "\\|",
