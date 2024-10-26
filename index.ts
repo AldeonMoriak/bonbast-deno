@@ -98,7 +98,7 @@ function makeCoinTable(coins: CoinListType[]): string {
     `| ${rightpad("Coin", 20)} | ${rightpad("Buy", 15)} | ${rightpad(
       "Sell",
       15,
-    )} |\n| :------------------ | --------- | --------- |\n${data}\n`
+    )} |\n| :------------------ | -------------- | --------------- |\n${data}\n`
       .replace(/\|/g, "\\|")
       .replace(/\-/g, "\\-") +
     "```"
