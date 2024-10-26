@@ -87,17 +87,17 @@ function makeCoinTable(coins: CoinListType[]): string {
   const data = coins
     .map(
       (item) =>
-        `| ${rightpad(item.coin, 20)} | ${rightpad(item.buy, 10)} | ${rightpad(
+        `| ${rightpad(item.coin, 20)} | ${rightpad(item.buy, 15)} | ${rightpad(
           item.sell,
-          10,
+          15,
         )} | \n`,
     )
     .join("");
   return (
     "```\n" +
-    `| ${rightpad("Coin", 20)} | ${rightpad("Buy", 10)} | ${rightpad(
+    `| ${rightpad("Coin", 20)} | ${rightpad("Buy", 15)} | ${rightpad(
       "Sell",
-      10,
+      15,
     )} |\n| :------------------ | --------- | --------- |\n${data}\n`
       .replace(/\|/g, "\\|")
       .replace(/\-/g, "\\-") +
