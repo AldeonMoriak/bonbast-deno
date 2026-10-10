@@ -10,14 +10,11 @@ A Telegram bot that replies with currency and coin exchange rates in Toman (10 I
 
 ## Local development
 
+Install dependencies and create a local `.dev.vars` file (this file is ignored by Git):
+
 ```sh
 npm install
-npx wrangler secret put TELEGRAM_KEY
-npx wrangler secret put USERS
-npm run dev
 ```
-
-For local development, put secrets in a `.dev.vars` file (do not commit it):
 
 ```dotenv
 TELEGRAM_KEY=your-telegram-bot-token
@@ -25,15 +22,27 @@ USERS=telegram_username,another_username
 TELEGRAM_WEBHOOK_SECRET=optional_random_secret
 ```
 
-Usernames are comma-separated without the `@` prefix. Configure these values as Worker secrets for production. `TELEGRAM_WEBHOOK_SECRET` is optional, but if configured, Telegram webhook requests must include the matching secret header.
+Then start the local Worker:
+
+```sh
+npm run dev
+```
+
+Usernames are comma-separated without the `@` prefix. `TELEGRAM_WEBHOOK_SECRET` is optional, but if configured, webhook requests must include the matching secret header.
 
 ## Deploy
 
 ```sh
 npm install
 npx wrangler login
+npx wrangler secret put TELEGRAM_KEY
+npx wrangler secret put USERS
+# Optional:
+npx wrangler secret put TELEGRAM_WEBHOOK_SECRET
 npm run deploy
 ```
+
+Set production secrets with Wrangler; do not commit `.dev.vars` or put production secrets in it.
 
 After deploying, configure Telegram's webhook using the URL shown by Wrangler:
 
