@@ -53,15 +53,10 @@ export default {
       return new Response("Telegram webhook is ready.", { status: 200 });
     }
 
-    if (env.TELEGRAM_WEBHOOK_SECRET) {
-      const secret = request.headers.get("X-Telegram-Bot-Api-Secret-Token");
-      if (secret !== env.TELEGRAM_WEBHOOK_SECRET) {
-        return new Response("Unauthorized", { status: 401 });
-      }
-    }
-
     if (!webhookHandler) {
-      webhookHandler = webhookCallback(createBot(env), "cloudflare-mod");
+      webhookHandler = webhookCallback(createBot(env), "cloudflare-mod", {
+        secretToken: env.TELEGRAM_WEBHOOK_SECRET,
+      });
     }
 
     return webhookHandler(request);
