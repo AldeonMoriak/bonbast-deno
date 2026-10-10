@@ -76,7 +76,7 @@ function makeCurrencyTable(currencies: CurrencyListType[]): string {
     "| :------------------ | ---------- | ---------- |",
     ...rows,
     "```",
-  ].join("\n").replace(/([_*[\]()~`>#+\-=|{}.!])/g, "\\$1") + "\n";
+  ].join("\n") + "\n";
 }
 
 function makeCoinTable(coins: CoinListType[]): string {
@@ -89,5 +89,5 @@ function makeCoinTable(coins: CoinListType[]): string {
     "| :-------- | --------------- | --------------- |",
     ...rows,
     "```",
-  ].join("\n").replace(/([_*[\]()~`>#+\-=|{}.!])/g, "\\$1");
+  ].join("\n");
 }
