@@ -28,6 +28,8 @@ Then start the local Worker:
 npm run dev
 ```
 
+This starts the Worker locally, but Telegram cannot send webhooks directly to `localhost`. To test real Telegram updates locally, expose the local port through a secure tunnel and set the bot webhook to that public HTTPS URL, or deploy a separate test Worker.
+
 Usernames are comma-separated without the `@` prefix. `TELEGRAM_WEBHOOK_SECRET` is optional, but if configured, webhook requests must include the matching secret header.
 
 ## Deploy
