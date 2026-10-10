@@ -7,6 +7,10 @@ interface Env {
   TELEGRAM_WEBHOOK_SECRET?: string;
 }
 
+// Keep the bot and webhook callback alive between requests in the same Worker isolate.
+// Otherwise webhookCallback initializes a new bot (and calls Telegram's getMe) per update.
+let webhookHandler: ((request: Request) => Promise<Response>) | undefined;
+
 function createBot(env: Env): Bot {
   const bot = new Bot(env.TELEGRAM_KEY);
 
@@ -56,9 +60,11 @@ export default {
       }
     }
 
-    const bot = createBot(env);
-    const handleUpdate = webhookCallback(bot, "cloudflare-mod");
-    return handleUpdate(request);
+    if (!webhookHandler) {
+      webhookHandler = webhookCallback(createBot(env), "cloudflare-mod");
+    }
+
+    return webhookHandler(request);
   },
 };
 
